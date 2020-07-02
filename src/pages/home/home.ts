@@ -29,7 +29,7 @@ export class HomePage {
   {
     this.auth.authenticated(this.cred)
       .subscribe(response=>{
-          console.log(response.headers.get("Authorization"));
+         this.auth.successfulLogin(response.headers.get('Authorization'));
           this.navCtrl.setRoot('CategoriasPage');
       },
         error => {});
