@@ -21,6 +21,14 @@ export class AuthService {
             responseType: 'text'
         });
     }
+    refreshToken() {
+        return this.http.post(`${API_CONFIG.baseUrl}/auth/refresh_token`, 
+         {},
+         {
+             observe: 'response',
+             responseType: 'text'
+         });
+     }
 
     successfulLogin(authorizationValue : string)
     {
@@ -36,4 +44,5 @@ export class AuthService {
     {
         this.storage.setLocalUser(null);
     }
+    
 }
