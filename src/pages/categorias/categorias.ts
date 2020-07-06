@@ -26,15 +26,15 @@ export class CategoriasPage {
     public categoriaService: CategoriaService) {
 
   }
-
-  
-
   ionViewDidLoad() {
     this.categoriaService.findAll()
       .subscribe(response =>{
           this.items = response;
       },
       error =>{});
+  }
+  showProdutos(){
+    this.navCtrl.push('ProdutosPage');
   }
 
 }
