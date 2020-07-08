@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, IonicPage, MenuController } from 'ionic-angular';
 import { CredenciaisDTO } from '../../models/credenciais.dto';
 import { AuthService } from '../../services/auth.service';
+import * as jwt_decode from 'jwt-decode';
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -27,17 +28,18 @@ export class HomePage {
   ionViewDidEnter(){
     this.auth.refreshToken()
       .subscribe(response=>{
-         this.auth.successfulLogin(response.headers.get('Authorization'));
+        this.auth.successfulLogin(response.headers.get('Authorization'));
           this.navCtrl.setRoot('CategoriasPage');
       },
         error => {});
+      
   }  
 
   login()
   {
     this.auth.authenticated(this.cred)
       .subscribe(response=>{
-         this.auth.successfulLogin(response.headers.get('Authorization'));
+        this.auth.successfulLogin(response.headers.get('Authorization'));
           this.navCtrl.setRoot('CategoriasPage');
       },
         error => {});
