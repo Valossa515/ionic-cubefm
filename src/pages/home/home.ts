@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, IonicPage, MenuController } from 'ionic-angular';
 import { CredenciaisDTO } from '../../models/credenciais.dto';
 import { AuthService } from '../../services/auth.service';
-import * as jwt_decode from 'jwt-decode';
+import { isTrueProperty } from 'ionic-angular/umd/util/util';
+import { TreeError } from '@angular/compiler';
+import { MyApp } from '../../app/app.component';
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -16,7 +18,8 @@ export class HomePage {
   }
   constructor(public navCtrl: NavController, 
     public menu: MenuController,
-    public auth: AuthService) {
+    public auth: AuthService,
+    public hide: MyApp) {
 
   }
   ionViewWillEnter() {
@@ -28,18 +31,17 @@ export class HomePage {
   ionViewDidEnter(){
     this.auth.refreshToken()
       .subscribe(response=>{
-        this.auth.successfulLogin(response.headers.get('Authorization'));
+         this.auth.successfulLogin(response.headers.get('Authorization'));
           this.navCtrl.setRoot('CategoriasPage');
       },
         error => {});
-      
   }  
 
   login()
   {
     this.auth.authenticated(this.cred)
       .subscribe(response=>{
-        this.auth.successfulLogin(response.headers.get('Authorization'));
+         this.auth.successfulLogin(response.headers.get('Authorization'));
           this.navCtrl.setRoot('CategoriasPage');
       },
         error => {});
